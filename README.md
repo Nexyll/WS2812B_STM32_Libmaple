@@ -1,7 +1,7 @@
 # WS2812B_STM32_Libmaple
 WS2812B (Neopixel) library for Arduino STM32 (Libmaple core)
 
-Written by Roger Clark www.rogerclark.net, from first principals
+> Written by Roger Clark www.rogerclark.net, from first principals
 
 This library uses SPI DMA to control a strip of WS2812B (NeoPixel) LEDS
 
@@ -16,7 +16,7 @@ frequence on the STM32 SPI to generate the correct width T0H pulse, of 400ns +/-
 SPI DIV32 gives a pulse width of 444nS which is well within spec for the WS2812B but
 is probably too long for the WS2812 which needs a 350ns pulse for T0H
 
-##Technical details
+## Technical details
 
 The library uses SPI to send the mark/space encoded data to the LED's
 
@@ -32,13 +32,12 @@ This method results in the smallest storage requirement and the fastest send tim
 however because the 8 bit pixel channel data is encoded in 24 bits, (3 bytes) the values required in each of the 3 bytes to represent 
 a specific value is not easy to generate.
 
-The bit pattern in the 3 bytes is 
-88877766   65554443    33222111
+The bit pattern in the 3 bytes is: `88877766   65554443    33222111`
 
 For speed of operation the values reqired for each byte for each of the 256 possible values is held in 3 separate 256 byte LUTS
 which were pre-computed by this function (which generates the full 24 bit pattern for a given input value (0-255)
 
-```
+```c
 uint32_t convert(uint8_t data)
 {
   uint32_t out=0;
